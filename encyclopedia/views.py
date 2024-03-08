@@ -8,3 +8,14 @@ def index(request):
         "entries": util.list_entries()
     })
 
+def entry(request, title):
+    if title in util.list_entries():
+        return render(request, "encyclopedia/entry.html", {
+            "title": title,
+            "content": util.list_entries(title)
+        })
+    else:
+        return render(request, "encyclopedia/error.html", {
+            "title": title
+        }
+    )
