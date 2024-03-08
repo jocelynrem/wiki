@@ -4,6 +4,6 @@
     <!-- <h1>{{ title }}</h1> -->
     <p>{{ content|safe }}</p>
     <div>
-        <a href="{% url 'edit_entry' %}">Edit this content</a>
+        <a href="{% url 'edit_entry' title=title %}">Edit this content</a>
     </div>
 {% endblock %}

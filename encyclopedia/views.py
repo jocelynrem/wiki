@@ -2,6 +2,10 @@ from django.shortcuts import render, redirect
 from . import util
 import markdown2
 import random
+from django import forms
+
+class EditEntryForm(forms.Form):
+    content = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}))
 
 
 def index(request):
@@ -52,8 +56,22 @@ def new_entry(request):
     return render(request, "encyclopedia/new_entry.html")
 
 
-def edit_entry(request):
-    return render(request, "encyclopedia/edit_entry.html")
+def edit_entry(request, title):
+    if request.method == "POST":
+        form = EditEntryForm(request.POST)
+        if form.is_valid():
+            content = form.cleaned_data["content"]
+            util.save_entry(title, content)
+            return redirect("entry", title=title)
+    else:
+        content = util.get_entry(title)
+        if content is None:
+            return render(request, "encyclopedia/error.html", {"message": "Page not found"})
+        form = EditEntryForm(initial={"content": content})
+        return render(
+            request, 
+            "encyclopedia/edit_entry.html",
+            {"form": form, "title": title})
 
 
 def random_entry(request):
