@@ -7,6 +7,10 @@ from django import forms
 class EditEntryForm(forms.Form):
     content = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}))
 
+class NewEntryForm(forms.Form):
+    title = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    content = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}))
+
 
 def index(request):
     return render(request, "encyclopedia/index.html", {"entries": util.list_entries()})
@@ -53,7 +57,19 @@ def search(request):
 
 
 def new_entry(request):
-    return render(request, "encyclopedia/new_entry.html")
+    if request.method == "POST":
+        form = NewEntryForm(request.POST)
+        if form.is_valid():
+            content = form.cleaned_data["content"]
+            title = form.cleaned_data["title"]
+            util.save_entry(title, content)
+            return redirect("entry", title=title)
+    else:
+        form = NewEntryForm()
+        return render(
+            request, 
+            "encyclopedia/new_entry.html",
+            {"form": form})
 
 
 def edit_entry(request, title):

@@ -1,3 +1,25 @@
 {% extends "encyclopedia/layout.html" %}
-{% block title %}Create New{% endblock %}
-{% block body %}<h1>Create New Entry</h1>{% endblock %}
+{% block title %}
+    Create a new entry
+{% endblock title %}
+{% block body %}
+    <h1>Create a new entry</h1>
+    <div class="form-group">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary mt-2">Save</button>
+        </form>
+    </div>
+{% endblock %}
+{% block body %}
+    <h1></h1>
+    <div class="form-group">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.title }}
+            {{ form.content }}
+            <button type="submit" class="btn btn-primary mt-2">Save</button>
+        </form>
+    </div>
+{% endblock body %}
