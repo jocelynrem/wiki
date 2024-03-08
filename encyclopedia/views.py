@@ -60,8 +60,9 @@ def new_entry(request):
     if request.method == "POST":
         form = NewEntryForm(request.POST)
         if form.is_valid():
-            content = form.cleaned_data["content"]
             title = form.cleaned_data["title"]
+            content = form.cleaned_data["content"]
+            content = f"# {title}\n\n{content}"
             util.save_entry(title, content)
             return redirect("entry", title=title)
     else:
