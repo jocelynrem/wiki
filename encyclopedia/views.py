@@ -48,8 +48,12 @@ def search(request):
         )
 
 
-def new(request):
-    return render(request, "encyclopedia/new.html")
+def new_entry(request):
+    return render(request, "encyclopedia/new_entry.html")
+
+
+def edit_entry(request):
+    return render(request, "encyclopedia/edit_entry.html")
 
 
 def random_entry(request):
