@@ -3,7 +3,8 @@
 <html lang="en">
     <head>
         <title>
-            {% block title %}{% endblock %}
+            {% block title %}
+            {% endblock title %}
         </title>
         <link rel="stylesheet"
               href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -27,10 +28,12 @@
                 <div>
                     <a href="{% url 'random_entry' %}">Random Page</a>
                 </div>
-                {% block nav %}{% endblock %}
+                {% block nav %}
+                {% endblock nav %}
             </div>
             <div class="main col-lg-10 col-md-9">
-                {% block body %}{% endblock %}
+                {% block body %}
+                {% endblock body %}
             </div>
         </div>
     </body>
