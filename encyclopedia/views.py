@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from . import util
 import markdown2
+import random
 
 
 def index(request):
@@ -49,3 +50,9 @@ def search(request):
 
 def new(request):
     return render(request, "encyclopedia/new.html")
+
+
+def random_entry(request):
+    entries = util.list_entries()
+    entry = random.choice(entries)
+    return redirect("entry", title=entry)
