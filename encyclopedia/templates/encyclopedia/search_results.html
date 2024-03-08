@@ -1,5 +1,7 @@
 {% extends "encyclopedia/layout.html" %}
-{% block title %}Search Results{% endblock %}
+{% block title %}
+    Search Results
+{% endblock title %}
 {% block body %}
     <h1>Search results for {{ query }}</h1>
     <ul>
@@ -10,4 +12,4 @@
         {% endfor %}
     </ul>
     {% if entries|length == 0 %}<p>no results found</p>{% endif %}
-{% endblock %}
+{% endblock body %}
