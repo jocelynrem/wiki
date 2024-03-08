@@ -45,3 +45,7 @@ def search(request):
             "encyclopedia/search_results.html",
             {"entries": filtered_entries, "query": query},
         )
+
+
+def new(request):
+    return render(request, "encyclopedia/new.html")
