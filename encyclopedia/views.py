@@ -1,6 +1,6 @@
 from django.shortcuts import render
-
 from . import util
+import markdown2
 
 
 def index(request):
@@ -8,14 +8,17 @@ def index(request):
         "entries": util.list_entries()
     })
 
-def entry(request, title):
-    if title in util.list_entries():
+def wiki(request, title):
+    content = util.get_entry(title)
+    if content is none:
+        return render(request, "encyclopedia/error.html", { 
+            "message": "Page not found"
+        })
+
+    else:
+        html_content = markdown2.markdown(content)
         return render(request, "encyclopedia/entry.html", {
             "title": title,
-            "content": util.list_entries(title)
-        })
-    else:
-        return render(request, "encyclopedia/error.html", {
-            "title": title
+            "content": html_content
         }
     )
